@@ -1,4 +1,4 @@
-package com.mvp.java;
+package com.rubasace.bias.preset.manager;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -10,7 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 
 @SpringBootApplication
-public class Main extends Application {
+public class ManagerApplication extends Application {
 
     private ConfigurableApplicationContext springContext;
     private Parent rootNode;
@@ -21,7 +21,7 @@ public class Main extends Application {
 
     @Override
     public void init() throws Exception {
-        springContext = SpringApplication.run(Main.class);
+        springContext = SpringApplication.run(ManagerApplication.class);
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/Main.fxml"));
         fxmlLoader.setControllerFactory(springContext::getBean);
         rootNode = fxmlLoader.load();
