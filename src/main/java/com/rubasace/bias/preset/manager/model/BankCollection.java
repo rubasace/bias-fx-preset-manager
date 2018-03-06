@@ -6,14 +6,15 @@ import java.util.List;
 
 public class BankCollection {
 
-  @JsonProperty("LiveBanks")
-  private List<Bank> banks;
+	@JsonProperty("LiveBanks")
+	private List<Bank> banks;
 
-  public List<Bank> getBanks() {
-    return banks;
-  }
+	public List<Bank> getBanks() {
+		return this.banks;
+	}
 
-  public void setBanks(final List<Bank> banks) {
-    this.banks = banks;
-  }
+	public void setBanks(final List<Bank> banks) {
+		this.banks = banks;
+	}
+
 }

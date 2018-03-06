@@ -6,14 +6,15 @@ import java.util.List;
 
 public class PresetCollection {
 
-    @JsonProperty("LivePresets")
-    private List<Preset> presets;
+	@JsonProperty("LivePresets")
+	private List<Preset> presets;
 
-    public List<Preset> getPresets() {
-        return presets;
-    }
+	public List<Preset> getPresets() {
+		return this.presets;
+	}
 
-    public void setPresets(final List<Preset> presets) {
-        this.presets = presets;
-    }
+	public void setPresets(final List<Preset> presets) {
+		this.presets = presets;
+	}
+
 }
