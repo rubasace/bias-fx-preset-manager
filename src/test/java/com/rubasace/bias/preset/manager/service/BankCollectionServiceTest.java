@@ -33,7 +33,7 @@ public class BankCollectionServiceTest {
   private BankFactory bankFactory;
 
   @InjectMocks
-  private BankCollectionService bankCollectionService;
+  private BankFileReader bankCollectionService;
 
   @Test
   public void shouldAdd() throws IOException {

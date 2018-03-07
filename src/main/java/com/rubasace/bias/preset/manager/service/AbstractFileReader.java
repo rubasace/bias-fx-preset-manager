@@ -5,11 +5,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.IOException;
 
-public abstract class AbstractCollectionService<T> {
+public abstract class AbstractFileReader<T> {
 
     protected final ObjectMapper objectMapper;
 
-    public AbstractCollectionService(final ObjectMapper objectMapper) {
+    public AbstractFileReader(final ObjectMapper objectMapper) {
         this.objectMapper = objectMapper;
     }
 

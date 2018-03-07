@@ -18,18 +18,18 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-public class AbstractCollectionServiceTest {
+public class AbstractFileReaderTest {
 
   @Mock
   private ObjectMapper objectMapper;
 
   @Mock(answer = Answers.CALLS_REAL_METHODS)
-  private AbstractCollectionService<String> abstractCollectionService;
+  private AbstractFileReader<String> abstractFileReader;
 
   @Before
   public void setUp() {
-    ReflectionTestUtils.setField(abstractCollectionService, "objectMapper", objectMapper);
-    when(abstractCollectionService.getCollectionClass()).thenReturn(String.class);
+    ReflectionTestUtils.setField(abstractFileReader, "objectMapper", objectMapper);
+    when(abstractFileReader.getCollectionClass()).thenReturn(String.class);
   }
 
   @Test
@@ -40,7 +40,7 @@ public class AbstractCollectionServiceTest {
 
     when(objectMapper.readValue(file, String.class)).thenReturn(mockedReturn);
 
-    String readValue = abstractCollectionService.read(file);
+    String readValue = abstractFileReader.read(file);
 
     assertThat(readValue, sameInstance(mockedReturn));
   }
@@ -51,6 +51,6 @@ public class AbstractCollectionServiceTest {
     File file = mock(File.class);
     when(objectMapper.readValue(file, String.class)).thenThrow(new IOException());
 
-    abstractCollectionService.read(file);
+    abstractFileReader.read(file);
   }
 }

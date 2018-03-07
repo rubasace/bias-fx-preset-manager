@@ -10,11 +10,11 @@ import java.io.File;
 import java.io.IOException;
 
 @Service
-public class BankCollectionService extends AbstractCollectionService<BankCollection> {
+public class BankFileReader extends AbstractFileReader<BankCollection> {
 
   private final BankFactory bankFactory;
 
-  public BankCollectionService(final ObjectMapper objectMapper, final BankFactory bankFactory) {
+  public BankFileReader(final ObjectMapper objectMapper, final BankFactory bankFactory) {
     super(objectMapper);
     this.bankFactory = bankFactory;
   }
