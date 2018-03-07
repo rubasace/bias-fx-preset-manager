@@ -1,4 +1,4 @@
-package com.rubasace.bias.preset.manager;
+package com.rubasace.bias.preset.manager.util;
 
 import java.io.InputStream;
 import java.net.URL;
