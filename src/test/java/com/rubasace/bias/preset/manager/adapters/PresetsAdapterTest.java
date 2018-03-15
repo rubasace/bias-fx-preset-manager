@@ -20,34 +20,34 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class PresetsAdapterTest {
 
-  @Mock
-  private PresetAdapter presetAdapter;
+    @Mock
+    private PresetAdapter presetAdapter;
 
-  @InjectMocks
-  private PresetsAdapter presetsAdapter;
+    @InjectMocks
+    private PresetsAdapter presetsAdapter;
 
-  @Test
-  public void shouldAdapt() {
+    @Test
+    public void shouldAdapt() {
 
-    File file1 = mock(File.class);
-    File file2 = mock(File.class);
+        File file1 = mock(File.class);
+        File file2 = mock(File.class);
 
-    PresetCollection presetCollection = new PresetCollection();
-    Preset preset1 = mock(Preset.class);
-    Preset preset2 = mock(Preset.class);
+        PresetCollection presetCollection = new PresetCollection();
+        Preset preset1 = mock(Preset.class);
+        Preset preset2 = mock(Preset.class);
 
-    presetCollection.setPresets(Arrays.asList(preset1, preset2));
+        presetCollection.setPresets(Arrays.asList(preset1, preset2));
 
-    File[] files = {file1, file2};
+        List<File> files = Arrays.asList(file1, file2);
 
-    Preset preset3 = mock(Preset.class);
-    Preset preset4 = mock(Preset.class);
+        Preset preset3 = mock(Preset.class);
+        Preset preset4 = mock(Preset.class);
 
-    when(presetAdapter.adapt(file1, 2)).thenReturn(preset3);
-    when(presetAdapter.adapt(file2, 3)).thenReturn(preset4);
+        when(presetAdapter.adapt(file1, 2)).thenReturn(preset3);
+        when(presetAdapter.adapt(file2, 3)).thenReturn(preset4);
 
-    List<Preset> presets = presetsAdapter.adapt(files, presetCollection);
+        List<Preset> presets = presetsAdapter.adapt(files, presetCollection);
 
-    assertThat(presets, is(Arrays.asList(preset3, preset4)));
-  }
+        assertThat(presets, is(Arrays.asList(preset3, preset4)));
+    }
 }

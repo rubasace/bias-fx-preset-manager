@@ -12,16 +12,16 @@ import java.util.stream.IntStream;
 @Component
 public class PresetsAdapter {
 
-  private final PresetAdapter presetAdapter;
+    private final PresetAdapter presetAdapter;
 
-  public PresetsAdapter(final PresetAdapter presetAdapter) {
-    this.presetAdapter = presetAdapter;
-  }
+    public PresetsAdapter(final PresetAdapter presetAdapter) {
+        this.presetAdapter = presetAdapter;
+    }
 
-  public List<Preset> adapt(final File[] files, final PresetCollection presetCollection) {
-    int size = presetCollection.getPresets().size();
-    return IntStream.range(0, files.length)
-                    .mapToObj(index -> presetAdapter.adapt(files[index], index + size))
-                    .collect(Collectors.toList());
-  }
+    public List<Preset> adapt(final List<File> files, final PresetCollection presetCollection) {
+        int size = presetCollection.getPresets().size();
+        return IntStream.range(0, files.size())
+                        .mapToObj(index -> presetAdapter.adapt(files.get(index), index + size))
+                        .collect(Collectors.toList());
+    }
 }
