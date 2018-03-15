@@ -1,20 +1,28 @@
 package com.rubasace.bias.preset.manager.app.util;
 
+import org.springframework.stereotype.Component;
+
 import java.io.InputStream;
 import java.net.URL;
 
+@Component
 public class ResourceManager {
 
-	public static URL get(String name) {
-		return ResourceManager.class.getResource(name);
-	}
+    private final ClassLoader classLoader;
 
-	public static String getAsString(String name) {
-		return ResourceManager.class.getResource(name).toExternalForm();
-	}
+    public ResourceManager() {
+        this.classLoader = this.getClass().getClassLoader();
+    }
 
-	public static InputStream getAsStream(String name) {
-		return ResourceManager.class.getResourceAsStream(name);
-	}
+    public static URL get(String name) {
+        return ResourceManager.class.getResource(name);
+    }
 
+    public String getAsString(String name) {
+        return classLoader.getResource(name).toExternalForm();
+    }
+
+    public InputStream getAsStream(String name) {
+        return classLoader.getResourceAsStream(name);
+    }
 }
