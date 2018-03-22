@@ -6,18 +6,31 @@ import javafx.beans.property.StringProperty;
 
 public class Bank {
 
-	private final StringProperty name = new SimpleStringProperty();
+    private final StringProperty folder = new SimpleStringProperty();
+    private final StringProperty name = new SimpleStringProperty();
 
-	public String getName() {
-		return this.name.get();
-	}
+    public String getFolder() {
+        return this.folder.get();
+    }
 
-	public void setName(final String name) {
-		this.name.set(name);
-	}
+    public void setFolder(final String folder) {
+        this.folder.set(folder);
+    }
 
-	public ReadOnlyStringProperty nameProperty() {
-		return this.name;
-	}
+    public ReadOnlyStringProperty folderProperty() {
+        return this.folder;
+    }
+
+    public String getName() {
+        return this.name.get();
+    }
+
+    public void setName(final String name) {
+        this.name.set(name);
+    }
+
+    public ReadOnlyStringProperty nameProperty() {
+        return this.name;
+    }
 
 }

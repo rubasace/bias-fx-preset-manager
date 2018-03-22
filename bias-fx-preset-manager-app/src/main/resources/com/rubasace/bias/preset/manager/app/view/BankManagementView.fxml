@@ -7,51 +7,52 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<VBox xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.111" fx:controller="com.rubasace.bias.preset.manager.app.view.BankManagementView">
+
+<VBox xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.rubasace.bias.preset.manager.app.view.BankManagementView">
 	<children>
 		<HBox alignment="BASELINE_LEFT" spacing="10.0" VBox.vgrow="NEVER">
 			<children>
-				<Label text="%filechooser.biasfx"/>
-				<TextField fx:id="biasDirectoryTextField" editable="false" HBox.hgrow="ALWAYS"/>
-				<Button mnemonicParsing="false" onAction="#browseBiasDirectoryHandler" text="%common.browse"/>
+				<Label text="%filechooser.biasfx" />
+				<TextField fx:id="biasDirectoryTextField" editable="false" HBox.hgrow="ALWAYS" />
+				<Button mnemonicParsing="false" onAction="#browseBiasDirectoryHandler" text="%common.browse" />
 			</children>
 			<VBox.margin>
-				<Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+				<Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
 			</VBox.margin>
 		</HBox>
 		<HBox alignment="BASELINE_LEFT" spacing="10.0" VBox.vgrow="NEVER">
 			<children>
-				<Label text="%filechooser.presets"/>
-				<TextField fx:id="presetsDirectoryTextField" editable="false" HBox.hgrow="ALWAYS"/>
-				<Button mnemonicParsing="false" onAction="#browsePresetDirectoryHandler" text="%common.browse"/>
+				<Label text="%filechooser.presets" />
+				<TextField fx:id="presetsDirectoryTextField" editable="false" HBox.hgrow="ALWAYS" />
+				<Button mnemonicParsing="false" onAction="#browsePresetDirectoryHandler" text="%common.browse" />
 			</children>
 			<VBox.margin>
-				<Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+				<Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
 			</VBox.margin>
 		</HBox>
 		<ListView fx:id="bankList" editable="true" prefHeight="200.0" prefWidth="200.0">
 			<VBox.margin>
-				<Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+				<Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
 			</VBox.margin>
 		</ListView>
 		<HBox alignment="BASELINE_LEFT" spacing="10.0">
 			<children>
-				<TextField fx:id="bankNameTextField" onAction="#addBankHandler" HBox.hgrow="ALWAYS"/>
+				<TextField fx:id="bankNameTextField" disable="true" onAction="#addBankHandler" HBox.hgrow="ALWAYS" />
 			</children>
 			<VBox.margin>
-				<Insets bottom="10.0" left="10.0" right="10.0"/>
+				<Insets bottom="10.0" left="10.0" right="10.0" />
 			</VBox.margin>
 		</HBox>
 		<HBox alignment="BASELINE_RIGHT" spacing="10.0" VBox.vgrow="NEVER">
 			<children>
-				<Button mnemonicParsing="false" onAction="#importHandler" text="%import"/>
+				<Button fx:id="importButton" disable="true" mnemonicParsing="false" onAction="#importHandler" text="%import" />
 			</children>
 			<VBox.margin>
-				<Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+				<Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
 			</VBox.margin>
 		</HBox>
 	</children>
 	<padding>
-		<Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+		<Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
 	</padding>
 </VBox>

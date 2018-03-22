@@ -12,6 +12,7 @@ import java.util.List;
 public class PresetImporter {
 
     private static final String PRESET_JSON_FILE = "preset.json";
+
     private final PresetsReader presetsReader;
     private final PresetsUpdater presetsUpdater;
     private final FileManager fileManager;
@@ -26,9 +27,9 @@ public class PresetImporter {
 
         File bankFolder = new File(biasDirectory, bankFolderName);
         File presetFile = new File(bankFolder, PRESET_JSON_FILE);
-        List<File> newPresets = presetsReader.readPresets(presetsDirectory);
-        PresetCollection presetCollection = presetsUpdater.update(presetFile, newPresets);
-        fileManager.copyFiles(newPresets, bankFolder);
+        List<File> newPresets = this.presetsReader.readPresets(presetsDirectory);
+        PresetCollection presetCollection = this.presetsUpdater.update(presetFile, newPresets);
+        this.fileManager.copyFiles(newPresets, bankFolder);
         return presetCollection;
     }
 }

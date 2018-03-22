@@ -41,20 +41,61 @@ public class PresetsUpdaterTest {
 
         PresetCollection presetCollection = mock(PresetCollection.class);
         List<Preset> originalPresets = new ArrayList<>();
-        Preset originalPreset = mock(Preset.class);
+
+        Preset originalPreset = getPreset("original");
+
         originalPresets.add(originalPreset);
         when(presetCollection.getPresets()).thenReturn(originalPresets);
 
-        when(fileMapper.read(presetFile, PresetCollection.class)).thenReturn(presetCollection);
-        Preset newPreset1 = mock(Preset.class);
-        Preset newPreset2 = mock(Preset.class);
-        List<Preset> mockedPresets = Arrays.asList(newPreset1, newPreset2);
-        when(presetsAdapter.adapt(newPresets, presetCollection)).thenReturn(mockedPresets);
+        when(this.fileMapper.read(presetFile, PresetCollection.class)).thenReturn(presetCollection);
+        Preset newPreset1 = getPreset("newPreset1");
+        Preset newPreset2 = getPreset("newPreset2");
 
-        PresetCollection updatedPresetCollection = presetsUpdater.update(presetFile, newPresets);
+        List<Preset> mockedPresets = Arrays.asList(newPreset1, newPreset2);
+        when(this.presetsAdapter.adapt(newPresets, presetCollection)).thenReturn(mockedPresets);
+
+        PresetCollection updatedPresetCollection = this.presetsUpdater.update(presetFile, newPresets);
 
         assertThat(updatedPresetCollection, sameInstance(presetCollection));
         assertThat(updatedPresetCollection.getPresets(), is(Arrays.asList(originalPreset, newPreset1, newPreset2)));
-        verify(fileMapper).write(presetFile, updatedPresetCollection);
+        verify(this.fileMapper).write(presetFile, updatedPresetCollection);
+    }
+
+    @Test
+    public void shouldIgnoreDuplicates() {
+
+        File presetFile = new File("presetFile.preset");
+
+        File newPreset1File = new File("preset1.preset");
+        File newPreset2File = new File("preset2.Preset");
+        List<File> newPresets = Arrays.asList(newPreset1File, newPreset2File, new File("original.PRESET"));
+        List<File> filteredNewPresets = Arrays.asList(newPreset1File, newPreset2File);
+
+        PresetCollection presetCollection = mock(PresetCollection.class);
+        List<Preset> originalPresets = new ArrayList<>();
+
+        Preset originalPreset = getPreset("original");
+
+        originalPresets.add(originalPreset);
+        when(presetCollection.getPresets()).thenReturn(originalPresets);
+
+        when(this.fileMapper.read(presetFile, PresetCollection.class)).thenReturn(presetCollection);
+        Preset newPreset1 = getPreset("newPreset1");
+        Preset newPreset2 = getPreset("newPreset2");
+
+        List<Preset> mockedPresets = Arrays.asList(newPreset1, newPreset2);
+        when(this.presetsAdapter.adapt(filteredNewPresets, presetCollection)).thenReturn(mockedPresets);
+
+        PresetCollection updatedPresetCollection = this.presetsUpdater.update(presetFile, newPresets);
+
+        assertThat(updatedPresetCollection, sameInstance(presetCollection));
+        assertThat(updatedPresetCollection.getPresets(), is(Arrays.asList(originalPreset, newPreset1, newPreset2)));
+        verify(this.fileMapper).write(presetFile, updatedPresetCollection);
+    }
+
+    private Preset getPreset(String name) {
+        Preset originalPreset = new Preset();
+        originalPreset.setName(name);
+        return originalPreset;
     }
 }

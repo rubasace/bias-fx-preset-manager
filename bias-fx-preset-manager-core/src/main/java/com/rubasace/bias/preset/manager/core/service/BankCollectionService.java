@@ -18,15 +18,15 @@ public class BankCollectionService {
         this.fileMapper = fileMapper;
     }
 
-    public BankCollection add(final String bankName, final File file) {
-        BankCollection bankCollection = read(file);
-        Bank bank = bankFactory.create(bankName, bankCollection);
+    public BankCollection add(final String bankName, final File bankFile) {
+        BankCollection bankCollection = read(bankFile);
+        Bank bank = this.bankFactory.create(bankName, bankCollection);
         bankCollection.getBanks().add(bank);
-        fileMapper.write(file, bankCollection);
+        this.fileMapper.write(bankFile, bankCollection);
         return bankCollection;
     }
 
-    public BankCollection read(final File file) {
-        return fileMapper.read(file, BankCollection.class);
+    public BankCollection read(final File bankFile) {
+        return this.fileMapper.read(bankFile, BankCollection.class);
     }
 }

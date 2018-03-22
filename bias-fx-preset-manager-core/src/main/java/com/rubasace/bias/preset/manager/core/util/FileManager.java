@@ -17,9 +17,14 @@ public class FileManager {
 
     private void copyFile(final File file, final File destinationFolder) {
         try {
-            FileCopyUtils.copy(file, new File(destinationFolder, file.getName()));
+            File destinationFile = new File(destinationFolder, file.getName());
+            // TODO revisit (don't do twice)
+            if (!destinationFile.exists()) {
+                FileCopyUtils.copy(file, destinationFile);
+            }
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }
     }
+
 }

@@ -13,44 +13,43 @@ import java.util.ResourceBundle;
 // @Component
 public class MainWindowView extends ResourcesView {
 
-	private final Stage stage;
+    private final Stage stage;
 
-	// @Autowired
-	public MainWindowView(ResourceBundle resources, Stage stage, String cssResource, InputStream icon) {
+    public MainWindowView(ResourceBundle resources, Stage stage, String cssResource, InputStream icon) {
 
-		super(resources);
+        super(resources);
 
-		this.stage = stage;
+        this.stage = stage;
 
-		// Set window title and icon
+        // Set window title and icon
 
-		stage.setTitle(this.translate("title"));
-		stage.getIcons().add(new Image(icon));
+        stage.setTitle(this.translate("title"));
+        stage.getIcons().add(new Image(icon));
 
-		// Load and show main view
+        // Load and show main view
 
-		Parent root = ViewLoader.load(MainView.class);
+        Parent root = ViewLoader.load(MainView.class);
 
-		Scene scene = new Scene(root, 600, 400);
-		scene.getStylesheets().add(cssResource);
+        Scene scene = new Scene(root, 600, 400);
+        scene.getStylesheets().add(cssResource);
 
-		stage.setScene(scene);
-		stage.sizeToScene();
+        stage.setScene(scene);
+        stage.sizeToScene();
 
-		// Listen to User actions
+        // Listen to User actions
 
-		stage.setOnCloseRequest(ev -> this.onCloseRequestHandler());
+        stage.setOnCloseRequest(ev -> this.onCloseRequestHandler());
 
-		// Listen to Store changes
+        // Listen to Store changes
 
-	}
+    }
 
-	private void onCloseRequestHandler() {
-		this.publishAction(new MainWindowClosedAction());
-	}
+    private void onCloseRequestHandler() {
+        this.publishAction(new MainWindowClosedAction());
+    }
 
-	public static void init(ResourceBundle resources, Stage stage, String cssResource, InputStream icon) {
-		new MainWindowView(resources, stage, cssResource, icon);
-	}
+    public static void init(ResourceBundle resources, Stage stage, String cssResource, InputStream icon) {
+        new MainWindowView(resources, stage, cssResource, icon);
+    }
 
 }

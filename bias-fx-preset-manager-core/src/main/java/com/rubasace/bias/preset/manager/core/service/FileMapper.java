@@ -8,17 +8,17 @@ import java.io.IOException;
 import java.io.UncheckedIOException;
 
 @Component
-public class FileMapper {
+class FileMapper {
 
-    protected final ObjectMapper objectMapper;
+    private final ObjectMapper objectMapper;
 
-    public FileMapper(final ObjectMapper objectMapper) {
+    FileMapper(final ObjectMapper objectMapper) {
         this.objectMapper = objectMapper;
     }
 
     public <T> T read(final File file, final Class<T> clazz) {
         try {
-            return objectMapper.readValue(file, clazz);
+            return this.objectMapper.readValue(file, clazz);
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }
@@ -26,7 +26,7 @@ public class FileMapper {
 
     public void write(final File file, final Object object) {
         try {
-            objectMapper.writeValue(file, object);
+            this.objectMapper.writeValue(file, object);
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }
