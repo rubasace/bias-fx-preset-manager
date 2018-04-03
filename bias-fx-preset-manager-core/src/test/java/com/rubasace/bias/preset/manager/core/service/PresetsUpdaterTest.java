@@ -3,6 +3,7 @@ package com.rubasace.bias.preset.manager.core.service;
 import com.rubasace.bias.preset.manager.core.adapters.PresetsAdapter;
 import com.rubasace.bias.preset.manager.core.model.Preset;
 import com.rubasace.bias.preset.manager.core.model.PresetCollection;
+import com.rubasace.bias.preset.manager.core.util.FileMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;

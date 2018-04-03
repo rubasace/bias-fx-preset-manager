@@ -1,4 +1,4 @@
-package com.rubasace.bias.preset.manager.core.service;
+package com.rubasace.bias.preset.manager.core.util;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Component;
@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.io.UncheckedIOException;
 
 @Component
-class FileMapper {
+public class FileMapper {
 
     private final ObjectMapper objectMapper;
 

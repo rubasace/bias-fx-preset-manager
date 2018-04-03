@@ -11,16 +11,16 @@ import static org.apache.commons.lang3.builder.ToStringStyle.SHORT_PREFIX_STYLE;
 
 public class BankCollection {
 
-	@JsonProperty("LiveBanks")
-	private List<Bank> banks;
+    @JsonProperty("LiveBanks")
+    private List<Bank> banks;
 
-	public List<Bank> getBanks() {
-		return this.banks;
-	}
+    public List<Bank> getBanks() {
+        return this.banks;
+    }
 
-	public void setBanks(final List<Bank> banks) {
-		this.banks = banks;
-	}
+    public void setBanks(final List<Bank> banks) {
+        this.banks = banks;
+    }
 
     @Override
     public int hashCode() {

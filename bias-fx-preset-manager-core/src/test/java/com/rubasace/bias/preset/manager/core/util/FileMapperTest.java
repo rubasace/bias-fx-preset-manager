@@ -1,11 +1,10 @@
-package com.rubasace.bias.preset.manager.core.service;
+package com.rubasace.bias.preset.manager.core.util;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import java.io.File;
@@ -14,6 +13,7 @@ import java.io.UncheckedIOException;
 
 import static org.hamcrest.core.IsSame.sameInstance;
 import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -33,9 +33,9 @@ public class FileMapperTest {
         File file = mock(File.class);
         Object mockedReturn = "I work";
 
-        when(objectMapper.readValue(file, Object.class)).thenReturn(mockedReturn);
+        when(this.objectMapper.readValue(file, Object.class)).thenReturn(mockedReturn);
 
-        Object readValue = fileMapper.read(file, Object.class);
+        Object readValue = this.fileMapper.read(file, Object.class);
 
         assertThat(readValue, sameInstance(mockedReturn));
     }
@@ -44,9 +44,9 @@ public class FileMapperTest {
     public void readShouldThrowRuntimeWhenObjectMapperFails() throws IOException {
 
         File file = mock(File.class);
-        when(objectMapper.readValue(file, Object.class)).thenThrow(new IOException());
+        when(this.objectMapper.readValue(file, Object.class)).thenThrow(new IOException());
 
-        fileMapper.read(file, Object.class);
+        this.fileMapper.read(file, Object.class);
     }
 
     @Test
@@ -55,9 +55,9 @@ public class FileMapperTest {
         File file = mock(File.class);
         Object object = mock(Object.class);
 
-        fileMapper.write(file, object);
+        this.fileMapper.write(file, object);
 
-        verify(objectMapper).writeValue(file, object);
+        verify(this.objectMapper).writeValue(file, object);
     }
 
     @Test(expected = UncheckedIOException.class)
@@ -67,8 +67,8 @@ public class FileMapperTest {
 
         Object object = new Object();
 
-        Mockito.doThrow(new IOException()).when(objectMapper).writeValue(file, object);
+        doThrow(new IOException()).when(this.objectMapper).writeValue(file, object);
 
-        fileMapper.write(file, object);
+        this.fileMapper.write(file, object);
     }
 }

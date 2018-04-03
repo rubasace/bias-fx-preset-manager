@@ -3,6 +3,8 @@ package com.rubasace.bias.preset.manager.core.service;
 import com.rubasace.bias.preset.manager.core.factories.BankFactory;
 import com.rubasace.bias.preset.manager.core.model.Bank;
 import com.rubasace.bias.preset.manager.core.model.BankCollection;
+import com.rubasace.bias.preset.manager.core.util.FileMapper;
+import com.rubasace.bias.preset.manager.core.writers.PresetCollectionWriter;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -10,7 +12,6 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -30,14 +31,19 @@ public class BankCollectionServiceTest {
     @Mock
     private BankFactory bankFactory;
 
+    @Mock
+    private PresetCollectionWriter presetCollectionWriter;
+
     @InjectMocks
     private BankCollectionService bankCollectionService;
 
     @Test
-    public void shouldAdd() throws IOException {
+    public void shouldAdd() {
 
-        File file = mock(File.class);
-        String name = "test name";
+        File biasDirectory = new File("biasDirectory");
+        File bankFile = new File(biasDirectory, "bank.json");
+        String bankName = "test name";
+        String bankFolderName = "test_folder";
 
         BankCollection originalBankCollection = new BankCollection();
         Bank bank1 = mock(Bank.class);
@@ -46,17 +52,19 @@ public class BankCollectionServiceTest {
         originalBanks.add(bank1);
         originalBanks.add(bank2);
         originalBankCollection.setBanks(originalBanks);
-        when(fileMapper.read(file, BankCollection.class)).thenReturn(originalBankCollection);
+        when(this.fileMapper.read(bankFile, BankCollection.class)).thenReturn(originalBankCollection);
 
         Bank newBank = mock(Bank.class);
-        when(bankFactory.create(name, originalBankCollection)).thenReturn(newBank);
+        when(newBank.getFolder()).thenReturn(bankFolderName);
+        when(this.bankFactory.create(bankName, originalBankCollection)).thenReturn(newBank);
 
         BankCollection expectedBankCollection = new BankCollection();
         expectedBankCollection.setBanks(Arrays.asList(bank1, bank2, newBank));
 
-        BankCollection readBankCollection = bankCollectionService.add(name, file);
+        BankCollection readBankCollection = this.bankCollectionService.add(bankName, bankFile);
 
         assertThat(readBankCollection, is(expectedBankCollection));
-        verify(fileMapper).write(file, expectedBankCollection);
+        verify(this.fileMapper).write(bankFile, expectedBankCollection);
+        verify(this.presetCollectionWriter).create(biasDirectory, bankFolderName);
     }
 }

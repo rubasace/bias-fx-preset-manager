@@ -45,6 +45,9 @@ public class BankManagementView extends ResourcesView {
     private ListView<Bank> bankList;
 
     @FXML
+    private ListView<String> presetList;
+
+    @FXML
     private TextField bankNameTextField;
 
     @FXML
@@ -82,7 +85,9 @@ public class BankManagementView extends ResourcesView {
                 @Override
                 protected void updateItem(Bank item, boolean empty) {
                     super.updateItem(item, empty);
-                    if (item != null) {
+                    if (empty) {
+                        this.setText("");
+                    } else {
                         this.setText(item.getName());
                     }
                 }
@@ -93,8 +98,10 @@ public class BankManagementView extends ResourcesView {
 
         this.bankList.setItems(this.store.getBanks());
 
+        this.presetList.setItems(EasyBind.map(this.store.getPresetFiles(), File::getName));
+
         // TODO uncomment when fixed
-        // this.bankNameTextField.disableProperty().bind(this.store.biasDirectoryProperty().isNull());
+        this.bankNameTextField.disableProperty().bind(this.store.biasDirectoryProperty().isNull());
 
         // TODO revisit (.isNull())
         ReadOnlyObjectProperty<?>[] mandatoryProperties = {

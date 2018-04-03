@@ -11,16 +11,16 @@ import static org.apache.commons.lang3.builder.ToStringStyle.SHORT_PREFIX_STYLE;
 
 public class PresetCollection {
 
-	@JsonProperty("LivePresets")
-	private List<Preset> presets;
+    @JsonProperty("LivePresets")
+    private List<Preset> presets;
 
-	public List<Preset> getPresets() {
-		return this.presets;
-	}
+    public List<Preset> getPresets() {
+        return this.presets;
+    }
 
-	public void setPresets(final List<Preset> presets) {
-		this.presets = presets;
-	}
+    public void setPresets(final List<Preset> presets) {
+        this.presets = presets;
+    }
 
     @Override
     public int hashCode() {

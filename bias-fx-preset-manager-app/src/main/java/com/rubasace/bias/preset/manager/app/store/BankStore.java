@@ -6,6 +6,7 @@ import com.rubasace.bias.preset.manager.app.action.ImportAction;
 import com.rubasace.bias.preset.manager.app.action.PresetsDirectorySelectedAction;
 import com.rubasace.bias.preset.manager.app.model.Bank;
 import com.rubasace.bias.preset.manager.core.model.BankCollection;
+import com.rubasace.bias.preset.manager.core.readers.PresetsReader;
 import com.rubasace.bias.preset.manager.core.service.BankCollectionService;
 import com.rubasace.bias.preset.manager.core.service.PresetImporter;
 import eu.lestard.fluxfx.Store;
@@ -24,14 +25,18 @@ import java.io.File;
 public class BankStore extends Store {
 
     private final ObservableList<Bank> banks = FXCollections.observableArrayList();
+    private final ObservableList<File> presetFiles = FXCollections.observableArrayList();
+
     private final ObjectProperty<File> biasDirectory = new SimpleObjectProperty<>();
     private final ObjectProperty<File> presetsDirectory = new SimpleObjectProperty<>();
 
     private final BankCollectionService bankCollectionService;
+    private final PresetsReader presetsReader;
     private final PresetImporter presetImporter;
 
-    public BankStore(final BankCollectionService bankCollectionService, final PresetImporter presetImporter) {
+    public BankStore(final BankCollectionService bankCollectionService, final PresetsReader presetsReader, final PresetImporter presetImporter) {
         this.bankCollectionService = bankCollectionService;
+        this.presetsReader = presetsReader;
         this.presetImporter = presetImporter;
     }
 
@@ -63,6 +68,10 @@ public class BankStore extends Store {
         return FXCollections.unmodifiableObservableList(this.banks);
     }
 
+    public ObservableList<File> getPresetFiles() {
+        return FXCollections.unmodifiableObservableList(this.presetFiles);
+    }
+
     private void biasDirectorySelectedHandler(final BiasDirectorySelectedAction action) {
         this.biasDirectory.set(getPresetsFile(action.getBiasDirectory()));
         this.loadBanks();
@@ -70,6 +79,7 @@ public class BankStore extends Store {
 
     private void presetsDirectorySelectedHandler(final PresetsDirectorySelectedAction action) {
         this.presetsDirectory.set(action.getPresetsDirectory());
+        this.loadPresets();
     }
 
     private void addBank(AddBankAction action) {
@@ -97,6 +107,12 @@ public class BankStore extends Store {
         BankCollection bankCollection = this.bankCollectionService.read(bankFile);
 
         addBankCollection(bankCollection);
+
+    }
+
+    private void loadPresets() {
+
+        this.presetFiles.setAll(this.presetsReader.readPresets(this.presetsDirectory.get()));
 
     }
 

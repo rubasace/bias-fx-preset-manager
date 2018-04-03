@@ -4,6 +4,7 @@ import com.rubasace.bias.preset.manager.core.adapters.PresetsAdapter;
 import com.rubasace.bias.preset.manager.core.model.Preset;
 import com.rubasace.bias.preset.manager.core.model.PresetCollection;
 import com.rubasace.bias.preset.manager.core.readers.PresetsReader;
+import com.rubasace.bias.preset.manager.core.util.FileMapper;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
